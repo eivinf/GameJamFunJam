@@ -4,15 +4,13 @@ using UnityEngine;
 
 public class CopyPosition : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public Transform target;
+    public float force;
 
-    // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        
+        //GetComponent<Rigidbody>().AddForce((target.position - transform.position) * force);
+        transform.position = target.position;
+        GetComponent<Rigidbody>().velocity = target.GetComponent<Rigidbody>().velocity;
     }
 }
