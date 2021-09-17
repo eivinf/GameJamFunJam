@@ -6,20 +6,25 @@ public class CharacterMovement : MonoBehaviour
 {
     public float verticalMovementSpeed;
     public float horizontalMovementSpeed;
+    public float verticalSprintSpeed;
+    public float horizontalSprintSpeed;
     public Vector3 desireMove;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update()
     {
+        var verticalTotalSpeed = verticalMovementSpeed;
+        var horizontalTotalSpeed = horizontalMovementSpeed;
+        
+        // Add sprint speed
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            verticalTotalSpeed += verticalSprintSpeed;
+            horizontalTotalSpeed += horizontalSprintSpeed;
+        }
 
-        //GetComponent<Rigidbody>().velocity -= desireMove;
-        var forwardMove = transform.rotation * Vector3.forward * verticalMovementSpeed * Input.GetAxis("Vertical");
-        var rightMove = transform.rotation * Vector3.right * horizontalMovementSpeed * Input.GetAxis("Horizontal");
+        var forwardMove = transform.rotation * Vector3.forward * verticalTotalSpeed * Input.GetAxis("Vertical");
+        var rightMove = transform.rotation * Vector3.right * horizontalTotalSpeed * Input.GetAxis("Horizontal");
 
         desireMove = rightMove + forwardMove;
         transform.position += desireMove;
