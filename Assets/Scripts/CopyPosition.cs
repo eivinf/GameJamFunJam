@@ -30,8 +30,8 @@ public class CopyPosition : MonoBehaviour
         if (isSwinging)
         {
             //GetComponent<Rigidbody>().AddForce((target.position - transform.position) * force);
-            transform.position = target.position;
-            GetComponent<Rigidbody>().velocity = target.GetComponent<Rigidbody>().velocity;
+            ;
+            GetComponent<Rigidbody>().velocity = target.position- transform.position;
         }
         
     }
