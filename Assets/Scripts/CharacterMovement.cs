@@ -13,15 +13,9 @@ public class CharacterMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        var verticalTotalSpeed = verticalMovementSpeed;
-        var horizontalTotalSpeed = horizontalMovementSpeed;
-        
-        // Add sprint speed
-        if (Input.GetKey(KeyCode.LeftShift))
-        {
-            verticalTotalSpeed += verticalSprintSpeed;
-            horizontalTotalSpeed += horizontalSprintSpeed;
-        }
+        var isShiftPressed = Input.GetKey(KeyCode.LeftShift) ? 1 : 0;
+        var verticalTotalSpeed = verticalMovementSpeed + isShiftPressed * verticalSprintSpeed;
+        var horizontalTotalSpeed = horizontalMovementSpeed + isShiftPressed * horizontalSprintSpeed;
 
         var forwardMove = transform.rotation * Vector3.forward * verticalTotalSpeed * Input.GetAxis("Vertical");
         var rightMove = transform.rotation * Vector3.right * horizontalTotalSpeed * Input.GetAxis("Horizontal");
