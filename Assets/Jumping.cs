@@ -10,6 +10,7 @@ public class Jumping : MonoBehaviour
     public float jumpForce = 2.0f;
 
     public bool isGrounded;
+    public bool jumpLeft;
     Rigidbody rb;
     void Start()
     {
@@ -20,15 +21,27 @@ public class Jumping : MonoBehaviour
     void OnCollisionStay()
     {
         isGrounded = true;
+
     }
 
-    void Update()
+    void OnCollisionExit()
+    {
+        isGrounded = false;
+        jumpLeft = true;
+    }
+
+        void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
 
             rb.AddForce(jump * jumpForce, ForceMode.Impulse);
             isGrounded = false;
+        }
+        else if (Input.GetKeyDown(KeyCode.Space) && jumpLeft)
+        {
+            rb.AddForce(jump * jumpForce, ForceMode.Impulse);
+            jumpLeft = false;
         }
     }
     
