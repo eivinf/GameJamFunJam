@@ -157,7 +157,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -28.059906, y: 81}
+  m_AnchoredPosition: {x: -28.059906, y: 137}
   m_SizeDelta: {x: 3.8802032, y: -54.0799}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &46897261
@@ -506,7 +506,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -28.059906, y: -64}
+  m_AnchoredPosition: {x: -28.059906, y: -173}
   m_SizeDelta: {x: 103.8802, y: 45.9201}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &210598896
@@ -2509,7 +2509,7 @@ GameObject:
   - component: {fileID: 1392209238}
   - component: {fileID: 1392209237}
   m_Layer: 5
-  m_Name: Troll
+  m_Name: Scoretext
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2630,7 +2630,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: -24.001678, w: 0}
+  m_margin: {x: -103.83658, y: -71.06085, z: -177.02383, w: -101.12505}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0

@@ -9,12 +9,16 @@ using UnityEngine.UI;
 public class LoadScores : MonoBehaviour
 {
     public TextMeshProUGUI scoreText;
+    string text = "";
     // Start is called before the first frame update
     void Start()
     {
+        foreach(SaveData element in GameFileManagement.LoadFile())
+        {
+            text += element.name + ": " + element.timePlayed.ToString("F2") + "\n";
+        }
         scoreText = GetComponent<TextMeshProUGUI>();
-        SaveData data = GameFileManagement.LoadFile();
-        scoreText.text = data.name + "\n" + data.timePlayed;
+        scoreText.text = text;
         //Debug.Log(GameFileManagement.LoadFile().name);
 
     }

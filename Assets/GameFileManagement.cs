@@ -13,17 +13,25 @@ public class GameFileManagement : MonoBehaviour
     {
         string destination = Application.persistentDataPath + "/save.dat";
         FileStream file;
+        List < SaveData > prev = new List<SaveData>();
+        if (File.Exists(destination)) {
+            prev = LoadFile();
+        }
+            
+        
 
         if (File.Exists(destination)) file = File.OpenWrite(destination);
         else file = File.Create(destination);
-
+        
         SaveData data = new SaveData( currentName, currentTimePlayed);
+        Debug.Log(currentName);
+        prev.Add(data);
         BinaryFormatter bf = new BinaryFormatter();
-        bf.Serialize(file, data);
+        bf.Serialize(file, prev);
         file.Close();
     }
 
-    public static SaveData LoadFile()
+    public static List<SaveData> LoadFile()
     {
         string destination = Application.persistentDataPath + "/save.dat";
         FileStream file;
@@ -36,7 +44,7 @@ public class GameFileManagement : MonoBehaviour
         }
 
         BinaryFormatter bf = new BinaryFormatter();
-        SaveData data = (SaveData)bf.Deserialize(file);
+        List<SaveData> data = (List<SaveData>)bf.Deserialize(file);
         file.Close();
         return data;
     }
