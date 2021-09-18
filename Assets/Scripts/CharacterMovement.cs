@@ -29,6 +29,8 @@ public class CharacterMovement : MonoBehaviour
     public float jumpForce;
     public float maxMoveSpeed;
     public LayerMask collisionMask;
+    public RopeVisulize rope;
+    public Transform ropeTarget;
     // Start is called before the first frame update
     void Start()
     {
@@ -43,6 +45,7 @@ public class CharacterMovement : MonoBehaviour
         if (Input.GetMouseButton(1) && ropeLength > minRopeLength)
         {
             ropeLength -= ReelInSpeed * Time.deltaTime;
+            rope.ReelIn(ReelInSpeed * Time.deltaTime);
             ropeLength = Mathf.Max(ropeLength, minRopeLength);
             velocity += Vector3.down * reelGravity;
         }
@@ -115,6 +118,7 @@ public class CharacterMovement : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Q) && isSwinging)
         {
+            rope.Detatch();
             isSwinging = false;
         }
         if (Input.GetMouseButtonDown(0))
@@ -124,6 +128,7 @@ public class CharacterMovement : MonoBehaviour
             {
                 ropeLength = Mathf.Max(Vector3.Distance(transform.position, hit.point), minRopeLength);
                 anchor.position = hit.point;
+                rope.Attatch(anchor.position, ropeTarget);
                 isSwinging = true;
             }
         }

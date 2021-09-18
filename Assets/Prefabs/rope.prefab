@@ -1264,5 +1264,7 @@ MonoBehaviour:
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
-  end: {fileID: 4440566777453734503}
-  endTarget: {fileID: 0}
+  endNode: {fileID: 4440566777453734503}
+  player: {fileID: 0}
+  ropeController: {fileID: 0}
+  anchorPosition: {x: 0, y: 0, z: 0}
