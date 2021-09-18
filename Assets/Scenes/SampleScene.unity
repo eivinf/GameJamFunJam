@@ -14205,9 +14205,25 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1802030632}
     - target: {fileID: 4042198338067410383, guid: 00af24caede1f054681b20f6157b7cc7, type: 3}
+      propertyPath: gravity
+      value: 0.007
+      objectReference: {fileID: 0}
+    - target: {fileID: 4042198338067410383, guid: 00af24caede1f054681b20f6157b7cc7, type: 3}
+      propertyPath: jumpForce
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4042198338067410383, guid: 00af24caede1f054681b20f6157b7cc7, type: 3}
       propertyPath: hookedText
       value: 
       objectReference: {fileID: 2073206419}
+    - target: {fileID: 4042198338067410383, guid: 00af24caede1f054681b20f6157b7cc7, type: 3}
+      propertyPath: verticalAirMovementSpeed
+      value: 0.003
+      objectReference: {fileID: 0}
+    - target: {fileID: 4042198338067410383, guid: 00af24caede1f054681b20f6157b7cc7, type: 3}
+      propertyPath: horizontalAirMovementSpeed
+      value: 0.003
+      objectReference: {fileID: 0}
     - target: {fileID: 5160933268756053442, guid: 00af24caede1f054681b20f6157b7cc7, type: 3}
       propertyPath: m_RootOrder
       value: 2
