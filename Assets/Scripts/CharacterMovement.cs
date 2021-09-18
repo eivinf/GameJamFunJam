@@ -26,6 +26,7 @@ public class CharacterMovement : MonoBehaviour
     public float airDrag;
     public float groundDrag;
     public float ReelInSpeed;
+    public float jumpForce;
     public float maxMoveSpeed;
     public LayerMask collisionMask;
     // Start is called before the first frame update
@@ -54,6 +55,10 @@ public class CharacterMovement : MonoBehaviour
         {
             velocity += transform.rotation * Vector3.forward * verticalMovementSpeed * Input.GetAxis("Vertical");
             velocity += transform.rotation * Vector3.right * horizontalMovementSpeed * Input.GetAxis("Horizontal");
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                velocity += Vector3.up * jumpForce;
+            }
         }
         else
         {
@@ -73,7 +78,18 @@ public class CharacterMovement : MonoBehaviour
         //transform.position += desireMove;
         //desireMove -= (anchor.position - transform.position).normalized * Vector3.Dot(desireMove, (anchor.position - transform.position));
 
-        grounded = false;
+        if (Physics.Raycast(transform.position, Vector3.down, 1.3f, collisionMask))
+        {
+            if (!grounded) 
+            {
+                velocity *= 0.01f;
+            }
+            grounded = true;
+        }
+        else
+        {
+            grounded = false;
+        }
         for (int i = 0; i < CollisionItterations; i++)
         {
             CheckCollision();
@@ -97,11 +113,11 @@ public class CharacterMovement : MonoBehaviour
 
         transform.position += velocity * 50 * Time.deltaTime;
 
-        if (Input.GetMouseButtonDown(0) && isSwinging)
+        if (Input.GetKeyDown(KeyCode.Q) && isSwinging)
         {
             isSwinging = false;
         }
-        if (Input.GetMouseButtonDown(0) && !isSwinging)
+        if (Input.GetMouseButtonDown(0))
         {
             var hit = new RaycastHit();
             if (Physics.Raycast(camera.position, camera.forward, out hit, 1000, collisionMask))
@@ -121,15 +137,10 @@ public class CharacterMovement : MonoBehaviour
         var point1 = transform.position + Vector3.up * 0.5f;
         var point2 = transform.position + Vector3.down * 0.5f;
         var closestColliderToLine = GetClosestColliderToLine(point1, point2, radius);
-        if (closestColliderToLine.Item2 < radius - 0.05f)
+        if (closestColliderToLine.Item2 < radius - 0.0001f)
         {
-            if (transform.position.y - 0.5f > closestColliderToLine.Item1.y)
-            {
-                Debug.Log(Time.time);
-                Debug.DrawLine(transform.position, closestColliderToLine.Item1,Color.red, 10f);
-                grounded = true;
-            }
-            transform.position -= closestColliderToLine.Item3 * (0.5f - closestColliderToLine.Item2) * 1.1f;
+            transform.position -= closestColliderToLine.Item3 * (0.5f - closestColliderToLine.Item2);
+            //velocity = FlattenDirectionForVector(velocity, -closestColliderToLine.Item3);
         }
         
     }
@@ -140,15 +151,9 @@ public class CharacterMovement : MonoBehaviour
         var point1 = transform.position + Vector3.up * 0.5f + velocity;
         var point2 = transform.position + Vector3.down * 0.5f + velocity;
         var closestColliderToLine = GetClosestColliderToLine(point1, point2, radius);
-        if (closestColliderToLine.Item2 < radius - 0.05f)
+        if (closestColliderToLine.Item2 < radius- 0.0001f)
         {
-            if (transform.position.y - 0.5f > closestColliderToLine.Item1.y)
-            {
-                Debug.Log(Time.time);
-                Debug.DrawLine(transform.position, closestColliderToLine.Item1, Color.red, 10f);
-                grounded = true;
-            }
-            velocity = FlattenDirectionForVector(velocity, closestColliderToLine.Item1 - transform.position);
+            velocity = FlattenDirectionForVector(velocity, closestColliderToLine.Item1 - transform.position) * 0.5f;
         }
 
     }
