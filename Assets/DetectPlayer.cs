@@ -25,4 +25,6 @@ public class DetectPlayer : MonoBehaviour
         timer.setFinished();
     }
 
+
+
 }

@@ -26,6 +26,7 @@ public class Timer : MonoBehaviour
     public void setFinished()
     {
         finished = true;
+        GameFileManagement.SaveFile(SaveName.name, Time.time - startTime);
     }
 
     
