@@ -403,12 +403,20 @@ PrefabInstance:
       value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 7079158506047352271, guid: 83faa44e63d340a458a425761445535f, type: 3}
+      propertyPath: reelGravity
+      value: 0.001
+      objectReference: {fileID: 0}
+    - target: {fileID: 7079158506047352271, guid: 83faa44e63d340a458a425761445535f, type: 3}
+      propertyPath: maxMoveSpeed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7079158506047352271, guid: 83faa44e63d340a458a425761445535f, type: 3}
       propertyPath: minRopeLength
-      value: 0.1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7079158506047352271, guid: 83faa44e63d340a458a425761445535f, type: 3}
       propertyPath: ropeStretchForce
-      value: 2
+      value: 0.03
       objectReference: {fileID: 0}
     - target: {fileID: 7079158506047352271, guid: 83faa44e63d340a458a425761445535f, type: 3}
       propertyPath: CollisionItterations
@@ -416,7 +424,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7079158506047352271, guid: 83faa44e63d340a458a425761445535f, type: 3}
       propertyPath: collisionMask.m_Bits
-      value: 63
+      value: 55
       objectReference: {fileID: 0}
     - target: {fileID: 7079158506047352271, guid: 83faa44e63d340a458a425761445535f, type: 3}
       propertyPath: verticalMovementSpeed
