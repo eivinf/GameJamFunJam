@@ -76,15 +76,18 @@ public class CharacterMovement : MonoBehaviour
             velocity += transform.rotation * Vector3.forward * verticalAirMovementSpeed * Input.GetAxis("Vertical");
             velocity += transform.rotation * Vector3.right * horizontalAirMovementSpeed * Input.GetAxis("Horizontal");
         }
-
-        var moveTowardsAnchor = Mathf.Min(Vector3.Dot(velocity, (anchor.position - transform.position).normalized), 0f);
-        if (Vector3.Distance(anchor.position, transform.position) > ropeLength && isSwinging)
+        if (isSwinging)
         {
-            velocity -= (anchor.position - transform.position).normalized * moveTowardsAnchor;
-            var ropeStrech = Mathf.Max((anchor.position - transform.position).magnitude - ropeLength, 0f);
-            velocity += (anchor.position - transform.position).normalized * ropeStrech * ropeStretchForce;
+            var moveTowardsAnchor = Mathf.Min(Vector3.Dot(velocity, (anchor.position - transform.position).normalized), 0f);
+            if (Vector3.Distance(anchor.position, transform.position) > ropeLength && isSwinging)
+            {
+                velocity -= (anchor.position - transform.position).normalized * moveTowardsAnchor;
+                var ropeStrech = Mathf.Max((anchor.position - transform.position).magnitude - ropeLength, 0f);
+                velocity += (anchor.position - transform.position).normalized * ropeStrech * ropeStretchForce;
 
+            }
         }
+        
        
         //transform.position += desireMove;
         //desireMove -= (anchor.position - transform.position).normalized * Vector3.Dot(desireMove, (anchor.position - transform.position));

@@ -34,7 +34,6 @@ public class RopeVisulize : MonoBehaviour
     {
         if (!(ropeController is null))
         {
-            Debug.Log(1);
             ropeController.GetNewNodePositions(rope, player.position);
             positions = rope.GetPositions();
             endNode.position = player.position;
