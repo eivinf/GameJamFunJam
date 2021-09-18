@@ -11,6 +11,7 @@ public class CharacterMovement : MonoBehaviour
     public Vector3 desireMove;
 
     // Update is called once per frame
+
     void Update()
     {
         var isShiftPressed = Input.GetKey(KeyCode.LeftShift) ? 1 : 0;
