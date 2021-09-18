@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EndTimer : MonoBehaviour
 {
+    public Timer timer;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,5 +15,13 @@ public class EndTimer : MonoBehaviour
     void Update()
     {
         
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.tag == "Player")
+        {
+            timer.setFinished();
+        }
     }
 }
