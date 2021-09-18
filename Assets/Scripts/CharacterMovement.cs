@@ -1,17 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEditor;
 
 public class CharacterMovement : MonoBehaviour
 {
     public float verticalMovementSpeed;
     public float horizontalMovementSpeed;
-
+    public Text hookedText;
 
     public float verticalAirMovementSpeed;
     public float horizontalAirMovementSpeed;
-
+    public int jumpsLeft = 1;
     public Vector3 velocity;
     public Transform anchor;
     public float minRopeLength;
@@ -54,12 +55,18 @@ public class CharacterMovement : MonoBehaviour
 
         if (grounded)
         {
+            jumpsLeft = 1;
             velocity += transform.rotation * Vector3.forward * verticalMovementSpeed * Input.GetAxis("Vertical");
             velocity += transform.rotation * Vector3.right * horizontalMovementSpeed * Input.GetAxis("Horizontal");
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 velocity += Vector3.up * jumpForce;
             }
+        }
+        else if(jumpsLeft > 0 && Input.GetKeyDown(KeyCode.Space))
+        {
+            velocity += Vector3.up * jumpForce;
+            jumpsLeft -= 1;
         }
         else
         {
@@ -117,6 +124,7 @@ public class CharacterMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Q) && isSwinging)
         {
             isSwinging = false;
+            hookedText.text = "Unhooked";
         }
         if (Input.GetMouseButtonDown(0))
         {
@@ -126,6 +134,7 @@ public class CharacterMovement : MonoBehaviour
                 ropeLength = Mathf.Max(Vector3.Distance(transform.position, hit.point), minRopeLength);
                 anchor.position = hit.point;
                 isSwinging = true;
+                hookedText.text = "Hooked";
             }
         }
 
