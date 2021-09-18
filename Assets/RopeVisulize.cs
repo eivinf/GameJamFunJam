@@ -17,6 +17,7 @@ public class RopeVisulize : MonoBehaviour
     void Update()
     {
         end.position = endTarget.position;
+        end.rotation = Quaternion.FromToRotation(Vector3.forward, positions[15] - end.position);
         for (int i = 0; i < nodes.Length; i++)
         {
             nodes[i].position = positions[i];
