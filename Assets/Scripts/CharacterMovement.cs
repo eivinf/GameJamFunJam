@@ -32,6 +32,7 @@ public class CharacterMovement : MonoBehaviour
     public LayerMask collisionMask;
     public RopeVisulize rope;
     public Transform ropeTarget;
+    public AudioSource whip;
     // Start is called before the first frame update
     void Start()
     {
@@ -140,6 +141,7 @@ public class CharacterMovement : MonoBehaviour
             var hit = new RaycastHit();
             if (Physics.Raycast(camera.position, camera.forward, out hit, 1000, collisionMask))
             {
+                whip.Play();
                 ropeLength = Mathf.Max(Vector3.Distance(transform.position, hit.point), minRopeLength);
                 anchor.position = hit.point;
                 rope.Attatch(anchor.position, ropeTarget);
