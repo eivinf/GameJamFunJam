@@ -30,6 +30,8 @@ public class CharacterMovement : MonoBehaviour
     public float jumpForce;
     public float maxMoveSpeed;
     public LayerMask collisionMask;
+    public RopeVisulize rope;
+    public Transform ropeTarget;
     // Start is called before the first frame update
     void Start()
     {
@@ -42,9 +44,11 @@ public class CharacterMovement : MonoBehaviour
     void Update()
     {
 
-        if (Input.GetMouseButton(1) && ropeLength > minRopeLength)
+        if (Input.GetMouseButton(1) && ropeLength > minRopeLength)    // For reeling in vine with "right mouse click"
+        //if (Input.GetKey(KeyCode.Q) && ropeLength > minRopeLength)     // For reeling in vine with "Q"
         {
             ropeLength -= ReelInSpeed * Time.deltaTime;
+            rope.ReelIn(ReelInSpeed * Time.deltaTime);
             ropeLength = Mathf.Max(ropeLength, minRopeLength);
             velocity += Vector3.down * reelGravity;
         }
@@ -73,15 +77,18 @@ public class CharacterMovement : MonoBehaviour
             velocity += transform.rotation * Vector3.forward * verticalAirMovementSpeed * Input.GetAxis("Vertical");
             velocity += transform.rotation * Vector3.right * horizontalAirMovementSpeed * Input.GetAxis("Horizontal");
         }
-
-        var moveTowardsAnchor = Mathf.Min(Vector3.Dot(velocity, (anchor.position - transform.position).normalized), 0f);
-        if (Vector3.Distance(anchor.position, transform.position) > ropeLength && isSwinging)
+        if (isSwinging)
         {
-            velocity -= (anchor.position - transform.position).normalized * moveTowardsAnchor;
-            var ropeStrech = Mathf.Max((anchor.position - transform.position).magnitude - ropeLength, 0f);
-            velocity += (anchor.position - transform.position).normalized * ropeStrech * ropeStretchForce;
+            var moveTowardsAnchor = Mathf.Min(Vector3.Dot(velocity, (anchor.position - transform.position).normalized), 0f);
+            if (Vector3.Distance(anchor.position, transform.position) > ropeLength && isSwinging)
+            {
+                velocity -= (anchor.position - transform.position).normalized * moveTowardsAnchor;
+                var ropeStrech = Mathf.Max((anchor.position - transform.position).magnitude - ropeLength, 0f);
+                velocity += (anchor.position - transform.position).normalized * ropeStrech * ropeStretchForce;
 
+            }
         }
+        
        
         //transform.position += desireMove;
         //desireMove -= (anchor.position - transform.position).normalized * Vector3.Dot(desireMove, (anchor.position - transform.position));
@@ -121,8 +128,10 @@ public class CharacterMovement : MonoBehaviour
 
         transform.position += velocity * 50 * Time.deltaTime;
 
-        if (Input.GetKeyDown(KeyCode.Q) && isSwinging)
+        //if (Input.GetMouseButtonUp(0) && isSwinging)     // For releasing vine by releasing "left mouse click"
+        if (Input.GetKeyUp(KeyCode.Q) && isSwinging)   // For releasing vine with "Q"
         {
+            rope.Detatch();
             isSwinging = false;
             hookedText.text = "Unhooked";
         }
@@ -133,6 +142,7 @@ public class CharacterMovement : MonoBehaviour
             {
                 ropeLength = Mathf.Max(Vector3.Distance(transform.position, hit.point), minRopeLength);
                 anchor.position = hit.point;
+                rope.Attatch(anchor.position, ropeTarget);
                 isSwinging = true;
                 hookedText.text = "Hooked";
             }
