@@ -31,6 +31,8 @@ public class DetectPlayer : MonoBehaviour
     public IEnumerator GoToMenu()
     {
         yield return new WaitForSeconds(3f);
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
         Application.LoadLevel(0);
     }
 
