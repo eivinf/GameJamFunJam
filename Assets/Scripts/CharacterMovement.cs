@@ -18,6 +18,7 @@ public class CharacterMovement : MonoBehaviour
     public float ropeLength;
     public float ropeStretchForce;
     public float gravity;
+    public float reelGravity;
     public bool isSwinging;
     public Transform camera;
     public bool grounded;
@@ -25,6 +26,7 @@ public class CharacterMovement : MonoBehaviour
     public float airDrag;
     public float groundDrag;
     public float ReelInSpeed;
+    public float maxMoveSpeed;
     public LayerMask collisionMask;
     // Start is called before the first frame update
     void Start()
@@ -41,6 +43,7 @@ public class CharacterMovement : MonoBehaviour
         {
             ropeLength -= ReelInSpeed * Time.deltaTime;
             ropeLength = Mathf.Max(ropeLength, minRopeLength);
+            velocity += Vector3.down * reelGravity;
         }
         else
         {
@@ -87,6 +90,11 @@ public class CharacterMovement : MonoBehaviour
 
         CheckMovedCollision();
 
+        if (velocity.magnitude > maxMoveSpeed)
+        {
+            velocity *= maxMoveSpeed / velocity.magnitude;
+        }
+
         transform.position += velocity * 50 * Time.deltaTime;
 
         if (Input.GetMouseButtonDown(0) && isSwinging)
@@ -96,7 +104,7 @@ public class CharacterMovement : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && !isSwinging)
         {
             var hit = new RaycastHit();
-            if (Physics.Raycast(camera.position, camera.forward, out hit, 1000))
+            if (Physics.Raycast(camera.position, camera.forward, out hit, 1000, collisionMask))
             {
                 ropeLength = Mathf.Max(Vector3.Distance(transform.position, hit.point), minRopeLength);
                 anchor.position = hit.point;
