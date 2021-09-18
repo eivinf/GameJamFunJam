@@ -22,7 +22,16 @@ public class DetectPlayer : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if(other.tag == "Player")
-        timer.setFinished();
+        {
+            timer.setFinished();
+            StartCoroutine(GoToMenu());
+        }
+    }
+
+    public IEnumerator GoToMenu()
+    {
+        yield return new WaitForSeconds(3f);
+        Application.LoadLevel(0);
     }
 
 
