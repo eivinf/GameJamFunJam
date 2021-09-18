@@ -58,6 +58,7 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    m_Ints: []
     m_Floats:
     - _BlendOp: 0
     - _BumpScale: 1
@@ -94,7 +95,7 @@ Material:
     - _ZWrite: 0
     m_Colors:
     - _CameraFadeParams: {r: 0, g: Infinity, b: 0, a: 0}
-    - _Color: {r: 0, g: 0.03815518, b: 0.9811321, a: 0.9372549}
+    - _Color: {r: 0.98039216, g: 0.6066351, b: 0, a: 0.9372549}
     - _ColorAddSubDiff: {r: 0, g: 0, b: 0, a: 0}
     - _EmissionColor: {r: 0.43391103, g: 0.43391103, b: 0.43391103, a: 1}
     - _SoftParticleFadeParams: {r: 0, g: 0, b: 0, a: 0}

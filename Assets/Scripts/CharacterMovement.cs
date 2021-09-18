@@ -44,7 +44,8 @@ public class CharacterMovement : MonoBehaviour
     void Update()
     {
 
-        if (Input.GetMouseButton(1) && ropeLength > minRopeLength)
+        if (Input.GetMouseButton(1) && ropeLength > minRopeLength)    // For reeling in vine with "right mouse click"
+        //if (Input.GetKey(KeyCode.Q) && ropeLength > minRopeLength)     // For reeling in vine with "Q"
         {
             ropeLength -= ReelInSpeed * Time.deltaTime;
             rope.ReelIn(ReelInSpeed * Time.deltaTime);
@@ -127,7 +128,8 @@ public class CharacterMovement : MonoBehaviour
 
         transform.position += velocity * 50 * Time.deltaTime;
 
-        if (Input.GetKeyDown(KeyCode.Q) && isSwinging)
+        //if (Input.GetMouseButtonUp(0) && isSwinging)     // For releasing vine by releasing "left mouse click"
+        if (Input.GetKeyUp(KeyCode.Q) && isSwinging)   // For releasing vine with "Q"
         {
             rope.Detatch();
             isSwinging = false;
